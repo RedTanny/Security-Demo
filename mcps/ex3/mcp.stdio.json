@@ -1,0 +1,20 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "internal-docs": {
+      "type": "stdio",
+      "command": "podman",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "--env",
+        "INTERNAL_DOCS_API_TOKEN",
+        "quay.io/example/internal-docs-mcp@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "env": {
+        "INTERNAL_DOCS_API_TOKEN": "${INTERNAL_DOCS_API_TOKEN}"
+      }
+    }
+  }
+}

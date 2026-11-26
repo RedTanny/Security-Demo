@@ -1,0 +1,3 @@
+# Wide grant — the shortcut. Do not enable this in the room.
+sandbox_mode = "danger-full-access"
+approval_policy = "never"

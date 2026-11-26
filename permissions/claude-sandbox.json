@@ -1,0 +1,21 @@
+{
+  "sandbox": {
+    "enabled": true,
+    "allowUnsandboxedCommands": false,
+    "failIfUnavailable": true,
+    "autoAllowBashIfSandboxed": true,
+    "filesystem": {
+      "denyRead": [
+        "~/.ssh",
+        "~/.aws",
+        "~/.config/gcloud",
+        "~/.claude/credentials.json"
+      ],
+      "denyWrite": [".claude/settings.json", ".claude/hooks"]
+    },
+    "network": {
+      "allowedDomains": ["github.com", "registry.npmjs.org", "pypi.org"],
+      "strictAllowlist": true
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "demo-gh-pat-not-a-secret-0000"
+      }
+    },
+    "internal-docs": {
+      "command": "npx",
+      "args": ["-y", "internal-docs-mcp-server"],
+      "env": {
+        "INTERNAL_DOCS_API_TOKEN": "demo-internal-docs-token-0000"
+      }
+    }
+  }
+}

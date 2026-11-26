@@ -1,0 +1,19 @@
+{
+  "mcpAllowlist": [
+    "internal-docs:search"
+  ],
+  "terminalAllowlist": [
+    "python src/app.py",
+    "pip install -r requirements.txt",
+    "pytest tests/test_webhooks.py",
+    "git status",
+    "git diff",
+    "git log"
+  ],
+  "autoRun": {
+    "block_instructions": [
+      "Any curl, wget, or nc command.",
+      "Any command that reads .env, ~/.ssh, or ~/.aws."
+    ]
+  }
+}

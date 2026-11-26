@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "internal-docs": {
+      "type": "streamable-http",
+      "url": "https://mcp.internal.example.com/docs"
+    }
+  }
+}

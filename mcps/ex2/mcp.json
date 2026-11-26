@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "internal-docs": {
+      "command": "podman",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "--env",
+        "INTERNAL_DOCS_API_TOKEN",
+        "quay.io/example/internal-docs-mcp@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      ],
+      "env": {
+        "INTERNAL_DOCS_API_TOKEN": "${INTERNAL_DOCS_API_TOKEN}"
+      },
+      "description": "Internal docs search. Token stays in the environment.",
+      "security": {
+        "isolation": "container",
+        "network": "local",
+        "credentials": "env-only"
+      }
+    }
+  }
+}
