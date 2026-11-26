@@ -5,7 +5,6 @@ Hands-on props for **Handling Security, Risk, and Quality Issues**. Fake tokens,
 | Folder | What it is |
 | --- | --- |
 | [example1](example1/README.md) | Prompt injection. Files are the demo. Do not run it. |
-| [demo-repo](demo-repo/README.md) | Scanner target: unpinned MCP, token in JSON, wide allow, injection README. |
 | [permissions](permissions/NOTES.md) | Labs ex1–ex4: ask → wide allow → local allow vs deny → sandbox. |
 | [mcps](mcps/NOTES.md) | Labs ex1–ex3: personal dump → env+pin → Agent Plugins schema. |
 
