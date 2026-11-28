@@ -98,7 +98,7 @@ enabled = true
 
 `network.enabled = true` without the proxy is unrestricted outbound. The domain table only counts when the proxy is on.
 
-Worked example: [`../codex-specific.toml`](../codex-specific.toml)
+Worked example: [`../codex-specific.toml`](../codex-specific.toml). Recommended baseline: [`../codex-manage.toml`](../codex-manage.toml). Org lock (no `--yolo`): [`../codex-manage-requirements.toml`](../codex-manage-requirements.toml).
 
 ## Default when nothing is set
 

@@ -18,6 +18,7 @@ grep -nE 'TOKEN|npx|-y' ex1/mcp.json
 | `GITHUB_PERSONAL_ACCESS_TOKEN": "demo-gh-…"` | personal PAT in a file the agent reads |
 | `INTERNAL_DOCS_API_TOKEN": "demo-internal-…"` | same, second server |
 | `"npx"` + `"-y"` | unpinned. Tomorrow’s package is today’s approval |
+| `@modelcontextprotocol/server-github` | archived/deprecated (replaced by `github/github-mcp-server`). `npx -y` still fetches it |
 | no `type`, no `$schema` | client infers stdio. Schema would reject the whole document |
 
 On a real laptop this file lives in the **home** directory, so every repo inherits both servers. If someone copies it into the project and pushes, the tokens are public. Rotate them.
@@ -30,7 +31,7 @@ On a real laptop this file lives in the **home** directory, so every repo inheri
 
 **On stage:** do not run `npx`. Point at the two env values, then at `-y`. Say: this is what the scanner flags. Connecting the server also lists **every** tool it exposes — there is no tool list in this file.
 
-The GitHub entry is the personal-use half: a PAT with the developer’s orgs, not a bot grant. The docs entry is the same bug on an internal API. Both ride into the model context whenever the server is connected.
+The GitHub entry is the personal-use half: a PAT with the developer’s orgs, not a bot grant. The docs entry is the same bug on an internal API. Both are readable by the agent on disk, and active in the server process the moment it connects.
 
 **Do not** copy this file into `~/.claude.json` or `~/.cursor/mcp.json`.
 

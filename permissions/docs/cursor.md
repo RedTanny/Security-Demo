@@ -34,7 +34,7 @@ Matching is a **prefix**. `"git"` is every git command. `"git status"` is status
 | `"curl"` | omit it |
 | `"internal-docs:*"` or `"*:*"` | `"internal-docs:search"` |
 
-Worked example: [`../cursor-specific.json`](../cursor-specific.json)
+Worked example: [`../cursor-specific.json`](../cursor-specific.json). Recommended baseline (desktop + sandbox + CLI): [`../cursor-manage.json`](../cursor-manage.json), [`../cursor-manage-sandbox.json`](../cursor-manage-sandbox.json), [`../cursor-cli-manage.json`](../cursor-cli-manage.json).
 
 ```json
 {

@@ -10,8 +10,19 @@ Missing rules mean **ask**, not deny and not allow.
 | File | Applies to | Put it in git? |
 | --- | --- | --- |
 | `.claude/settings.json` | Everyone who clones this repo | **Yes.** Add and push it so the same grant travels with the code. |
-| `.claude/settings.local.json` | Only your laptop. “Don’t ask again” writes here. | **No.** Add it to `.gitignore`. |
+| `.claude/settings.local.json` | Only your laptop. “Don’t ask again” writes here, at the **git root**, even if you started Claude in a subdirectory (`tmp/`, `demo-repo/`, …). | **No.** Add it to `.gitignore`. |
 | `~/.claude/settings.json` | Only you, in every repo | Not in this repo. It lives in your home directory. |
+
+Find the local file with `cat "$(git rev-parse --show-toplevel)/.claude/settings.local.json"`. A session started in `tmp/` does **not** create `tmp/.claude/settings.local.json`.
+
+`--permission-mode default` only picks Manual. It does **not** skip `settings.json`. The two files are not loaded from the same place:
+
+| File | Read from |
+| --- | --- |
+| `.claude/settings.json` (team) | **cwd** (the folder you started `claude` in). No walk-up to the git root. |
+| `.claude/settings.local.json` (you) | **git root**, even from a subdirectory |
+
+These labs start in `tmp/`, so the team file must be **`tmp/.claude/settings.json`**. A copy at the git root is ignored until you start `claude` there. After you write the file, start a **new** session.
 
 “Commit it” just means `git add` + `git commit` + `git push` on `.claude/settings.json`, like any other project file. After that, a teammate who pulls the repo gets the same allow/deny list without copying anything by hand.
 
@@ -104,7 +115,7 @@ Same repo. Left column is the finding. Right column is the grant.
 | `WebFetch(domain:*)` | `WebFetch(domain:docs.stripe.com)` |
 | `mcp__internal-docs__*` | `mcp__internal-docs__search` |
 
-Worked example: [`../claude-specific.json`](../claude-specific.json)
+Worked example: [`../claude-specific.json`](../claude-specific.json). Recommended baseline (managed / user): [`../claude-manage.json`](../claude-manage.json).
 
 ```json
 {

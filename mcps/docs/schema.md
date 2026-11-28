@@ -34,3 +34,23 @@ Top level is `$schema` and `mcpServers` only. Each server has a `type`. `additio
 A value you paste into `env` is still a token in a file the model can read. The plugin names the variable. The client supplies the value.
 
 Worked files: [ex3/mcp.json](../ex3/mcp.json) (remote) and [ex3/mcp.stdio.json](../ex3/mcp.stdio.json) (local).
+
+## Live check
+
+[schema.json](../schema.json) is that closed document plus the URL/variable rules the official JSON Schema leaves as prose (`https://`, no `${...}`, no userinfo, no fragment). `headers` stay optional package data; values must not contain `${`. `check-jsonschema` is not on this box — `python3` + `jsonschema` is.
+
+```bash
+cd ~/projects/AI5/security-session/mcps
+python3 - <<'PY'
+import json
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import best_match
+schema = json.load(open("schema.json"))
+validator = Draft202012Validator(schema)
+for path in ["ex1/mcp.json", "ex2/mcp.json", "ex3/mcp.json", "ex3/mcp.stdio.json"]:
+    error = best_match(validator.iter_errors(json.load(open(path))))
+    print(f"{path}: {'FAIL — ' + error.message if error else 'PASS'}")
+PY
+```
+
+ex1 and ex2 fail. ex3 and `mcp.stdio.json` pass.

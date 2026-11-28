@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "title": "Agent Plugins MCP Configuration (lab validator)",
+  "description": "Closed-document 1.0.0 shape, plus URL and header constraints the official JSON Schema leaves as prose: literal https://, no ${...}, no userinfo, no fragment. headers remain optional package data — not a secret field.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "const": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+    },
+    "mcpServers": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/server"
+      }
+    }
+  },
+  "required": ["$schema", "mcpServers"],
+  "additionalProperties": false,
+  "$defs": {
+    "server": {
+      "oneOf": [
+        { "$ref": "#/$defs/stdioServer" },
+        { "$ref": "#/$defs/streamableHttpServer" },
+        { "$ref": "#/$defs/sseServer" }
+      ]
+    },
+    "stdioServer": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "stdio" },
+        "command": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\s]+$",
+          "description": "One executable token. Arguments stay in args."
+        },
+        "args": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "env": {
+          "type": "object",
+          "propertyNames": {
+            "not": { "enum": ["PLUGIN_ROOT", "PLUGIN_DATA"] }
+          },
+          "additionalProperties": { "type": "string" }
+        },
+        "cwd": {
+          "type": "string",
+          "pattern": "^(?:\\./|\\$\\{PLUGIN_ROOT\\}(?:/|$)|\\$\\{PLUGIN_DATA\\}(?:/|$))"
+        }
+      },
+      "required": ["type", "command"],
+      "additionalProperties": false
+    },
+    "httpsUrl": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^https://[^/@?#\\$]+(?:/[^?#\\$]*)?$",
+      "description": "Literal https:// URL. No userinfo, fragment, or ${...}."
+    },
+    "headers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "not": { "pattern": "\\$\\{" }
+      }
+    },
+    "streamableHttpServer": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "streamable-http" },
+        "url": { "$ref": "#/$defs/httpsUrl" },
+        "headers": { "$ref": "#/$defs/headers" }
+      },
+      "required": ["type", "url"],
+      "additionalProperties": false
+    },
+    "sseServer": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "sse" },
+        "url": { "$ref": "#/$defs/httpsUrl" },
+        "headers": { "$ref": "#/$defs/headers" }
+      },
+      "required": ["type", "url"],
+      "additionalProperties": false
+    }
+  }
+}

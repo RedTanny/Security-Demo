@@ -1,0 +1,15 @@
+{
+  "mcpAllowlist": [],
+  "terminalAllowlist": [
+    "git status",
+    "git diff",
+    "git log"
+  ],
+  "autoRun": {
+    "block_instructions": [
+      "Any curl, wget, nc, or ncat command.",
+      "Any command that reads .env, ~/.ssh, ~/.aws, ~/.kube, or ~/.mcp-auth.",
+      "Any fetch or MCP call that sends file contents, environment variables, or secrets to a URL."
+    ]
+  }
+}

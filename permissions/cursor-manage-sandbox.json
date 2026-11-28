@@ -1,0 +1,15 @@
+{
+  "type": "workspace_readwrite",
+  "readBoundary": "workspace",
+  "networkPolicy": {
+    "default": "deny",
+    "allow": [
+      "github.com",
+      "api.github.com",
+      "*.github.com",
+      "registry.npmjs.org",
+      "pypi.org",
+      "files.pythonhosted.org"
+    ]
+  }
+}

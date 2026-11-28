@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(git:status*)",
+      "Shell(git:diff*)",
+      "Shell(git:log*)"
+    ],
+    "deny": [
+      "Shell(curl:*)",
+      "Shell(wget:*)",
+      "Shell(nc:*)",
+      "Shell(ncat:*)",
+      "Read(.env*)",
+      "Read(**/.env*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.kube/**)",
+      "Read(~/.mcp-auth/**)",
+      "Write(**/.env*)"
+    ]
+  }
+}

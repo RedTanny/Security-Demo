@@ -1,0 +1,49 @@
+# Recommended Codex baseline. Copy to ~/.codex/config.toml
+# (or <repo>/.codex/config.toml). Do not mix with sandbox_mode
+# in the same file — pick profiles or the older sandbox keys, not both.
+#
+# Network: proxy ON + domain list. network.enabled without the proxy
+# is unrestricted outbound (curl can reach any host).
+
+approval_policy = "on-request"
+default_permissions = "project-edit"
+
+[features]
+network_proxy = true
+
+[permissions.project-edit]
+description = "Workspace write; secrets denied; network allowlisted."
+extends = ":workspace"
+
+[permissions.project-edit.filesystem]
+glob_scan_max_depth = 3
+
+[permissions.project-edit.filesystem.":workspace_roots"]
+"**/.env" = "deny"
+"**/.env.*" = "deny"
+
+[permissions.project-edit.filesystem."~/.ssh"]
+"." = "deny"
+
+[permissions.project-edit.filesystem."~/.aws"]
+"." = "deny"
+
+[permissions.project-edit.filesystem."~/.kube"]
+"." = "deny"
+
+[permissions.project-edit.filesystem."~/.mcp-auth"]
+"." = "deny"
+
+[permissions.project-edit.filesystem."~/.config/gcloud"]
+"." = "deny"
+
+[permissions.project-edit.network]
+enabled = true
+
+[permissions.project-edit.network.domains]
+"github.com" = "allow"
+"api.github.com" = "allow"
+"**.github.com" = "allow"
+"registry.npmjs.org" = "allow"
+"pypi.org" = "allow"
+"files.pythonhosted.org" = "allow"

@@ -36,7 +36,7 @@ Reads are open until you deny them. That is not obvious.
 
 When the sandbox blocks a command (`curl` to a denied host, write outside the repo), Claude can retry with `dangerouslyDisableSandbox`. You get a prompt titled **Bash command (unsandboxed)** — unless an **allow** rule already matches, in which case the retry runs **with no prompt**.
 
-`Bash(curl *)` in allow therefore defeats the sandbox for that command. Same file as [ex2](../ex2/README.md).
+`Bash(curl *)` in allow therefore defeats the sandbox for that command. Same grant as [Case 2 in ex1](../ex1/Readme.md).
 
 | Setting | Meaning |
 | --- | --- |

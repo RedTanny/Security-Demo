@@ -30,7 +30,22 @@ grep -nE 'TOKEN|sha256|description|security' ex2/mcp.json
 
 ## Case 2 — clean tree, closed standard
 
-**What you are proving:** moving the secret to the environment and pinning the image is necessary and not sufficient. This file would still fail [schema.md](../docs/schema.md): missing `$schema`, no `type`, extra keys.
+**What you are proving:** moving the secret to the environment and pinning the image is necessary and not sufficient. This file would still fail [schema.md](../docs/schema.md): missing `$schema`, no `type`, extra keys. Show it:
+
+```bash
+python3 - <<'PY'
+import json
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import best_match
+schema = json.load(open("schema.json"))
+validator = Draft202012Validator(schema)
+for path in ["ex1/mcp.json", "ex2/mcp.json", "ex3/mcp.json", "ex3/mcp.stdio.json"]:
+    error = best_match(validator.iter_errors(json.load(open(path))))
+    print(f"{path}: {'FAIL — ' + error.message if error else 'PASS'}")
+PY
+```
+
+ex1 and ex2 fail. ex3 and `mcp.stdio.json` pass. Same command in [ex3](../ex3/README.md).
 
 **On stage:** grep is clean of literal tokens. Then point at `description` and `security`. Say: an extra key is not documentation, it is invalid under 1.0.0. The credential is still a long-lived env var, not a revocable grant.
 

@@ -1,0 +1,41 @@
+# Org lock. Deploy as /etc/codex/requirements.toml (or ChatGPT
+# workspace Agent security → Edit as TOML). This is the Codex
+# analogue of Claude disableBypassPermissionsMode: it blocks
+# --yolo / danger-full-access / never-ask.
+#
+# Constraints, not defaults. Pair with codex-manage.toml for
+# the starting profile and domain list.
+
+allowed_approval_policies = ["on-request", "untrusted"]
+default_permissions = "project-edit"
+
+[allowed_permission_profiles]
+":read-only" = true
+":workspace" = true
+project-edit = true
+# ":danger-full-access" omitted → denied
+
+[permissions.filesystem]
+deny_read = [
+  "/**/*.env",
+  "~/.ssh",
+  "~/.aws",
+  "~/.kube",
+  "~/.mcp-auth",
+  "~/.config/gcloud"
+]
+
+[features]
+network_proxy = true
+
+[experimental_network]
+enabled = true
+managed_allowed_domains_only = true
+
+[experimental_network.domains]
+"github.com" = "allow"
+"api.github.com" = "allow"
+"**.github.com" = "allow"
+"registry.npmjs.org" = "allow"
+"pypi.org" = "allow"
+"files.pythonhosted.org" = "allow"

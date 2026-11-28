@@ -34,7 +34,24 @@ diff -u ex2/mcp.json ex3/mcp.json
 
 **What you are proving:** there is nothing in this file to grep, commit, or leak. Revoke the grant in the client; you do not rotate a string in git.
 
+Same validator as [ex2](../ex2/README.md) — ex1 and ex2 fail, these two pass:
+
+```bash
+python3 - <<'PY'
+import json
+from jsonschema import Draft202012Validator
+from jsonschema.exceptions import best_match
+schema = json.load(open("schema.json"))
+validator = Draft202012Validator(schema)
+for path in ["ex1/mcp.json", "ex2/mcp.json", "ex3/mcp.json", "ex3/mcp.stdio.json"]:
+    error = best_match(validator.iter_errors(json.load(open(path))))
+    print(f"{path}: {'FAIL — ' + error.message if error else 'PASS'}")
+PY
+```
+
 **On stage:** open ex1 and ex3 side by side. Left file is two secrets. Right file is a URL.
+
+**If someone asks** *Where do the OAuth tokens live if they aren't in `mcp.json`?* — In the client's auth store (like `~/.mcp-auth/` or the OS keychain) — which is why our `managed-settings.json` puts `~/.mcp-auth/**` on the `deny` list and the OS sandbox blocks reads to it.
 
 ## Local stdio (when the server cannot move)
 
